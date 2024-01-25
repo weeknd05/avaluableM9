@@ -32,7 +32,7 @@ public class AtacSimple {
 
             for(int i = 0; i < diccionari.length; i++){
                 if(compte.getHashPass().equals(hashContraseñas[i])){
-                    return compte.getUsername() + " " + " "+ diccionari[i];
+                    return "Usuario: " + compte.getUsername() + " Contraseña: " + diccionari[i];
                 }
             }
         
@@ -48,9 +48,9 @@ public class AtacSimple {
      */
     private String [] hashContraseñaArray (String[] contraseñas) throws NoSuchAlgorithmException{
        String[] hashContraseñas = new String[contraseñas.length];
-       System.out.println("Empieza el proceso de hash");
+    //   System.out.println("Empieza el proceso de hash");
         for(int i = 0; i < contraseñas.length; i++){
-            System.out.println("Estoy hasheando la contraseña:" + contraseñas[i]);
+        //    System.out.println("Estoy hasheando la contraseña:" + contraseñas[i]);
             hashContraseñas[i] = Procesador.hashContraseña(contraseñas[i]);
         }
         return hashContraseñas;

@@ -8,9 +8,7 @@ import java.util.Map;
 /**
  * 
  */
-public final class App {
-    private App() {
-    }
+public  class App {
 
     /**
      * Says hello to the world.
@@ -19,16 +17,18 @@ public final class App {
      * @throws NoSuchAlgorithmException 
      */
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        System.out.println("Hello World!");
-        HashMap<String, String> map = Procesador.leerFichero("usuaris.txt");
+        //Cargamos un hash map con las cuentas y las contraseñas del fichero
+        HashMap<String, String> mapCuentas = Procesador.leerFichero("usuaris.txt");
         int contador = 0;
         Compte[] cuentas = new Compte[10];
-        //funcion lambda para recorrer y mostrar la información del hashmap de forma sencilla
-        map.forEach((key, value) -> {
-            System.out.println("Clave: " + key  + " Valor: " + value);
-        });
 
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        //funcion lambda para recorrer y mostrar la información del hashmap de forma sencilla
+        // mapCuentas.forEach((key, value) -> {
+        //     System.out.println("Usuario: \"" + key  + "\" Contraseña: \"" + value+"\"");
+        // });
+
+        
+        for (Map.Entry<String, String> entry : mapCuentas.entrySet()) {
             if (contador < cuentas.length) {
                 cuentas[contador] = new Compte(entry.getKey(), entry.getValue());
                 contador++;
@@ -38,10 +38,9 @@ public final class App {
             }
         }
 
-        Procesador.escribirFichero(map, "usuarisHash.txt");
+        Procesador.escribirFichero(mapCuentas, "usuarisHash.txt");
         
         String[] diccionari = Procesador.cargarDiccionario("es.dic");
-        System.out.println(cuentas[0].getPass());
         AtacSimple atacSimple = new AtacSimple(diccionari);
 
         for(int i = 0; i < cuentas.length; i++){
