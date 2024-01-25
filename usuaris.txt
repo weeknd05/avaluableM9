@@ -1,0 +1,11 @@
+usuario:contraseña
+adrian:espalto
+movil:funda
+programa:objeto
+cambio:revertir
+clase:risa
+usuario2:guardar
+pepito:simple
+admin:vino
+root:administrador
+david:tutor
