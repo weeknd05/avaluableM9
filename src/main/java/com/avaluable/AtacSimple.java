@@ -1,6 +1,7 @@
 package com.avaluable;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 /**
  * Clase para atacar una cuenta y obtener la contraseña
  * 
@@ -25,18 +26,17 @@ public class AtacSimple {
 
     /**
      * Función que ataca una cuenta, encontrando la contraseña en el diccionario
-     * @return
+     * @return HashMap<String, String>
      * @throws NoSuchAlgorithmException
      */
-    public String atacar(Compte compte) throws NoSuchAlgorithmException{
-
+    public HashMap<String, String> atacar(Compte compte) throws NoSuchAlgorithmException{
+        HashMap<String, String> userAndPwMap = new HashMap<>();
             for(int i = 0; i < diccionari.length; i++){
                 if(compte.getHashPass().equals(hashContraseñas[i])){
-                    return "Usuario: " + compte.getUsername() + " Contraseña: " + diccionari[i];
+                    userAndPwMap.put(compte.getUsername(), diccionari[i]);
                 }
             }
-        
-        return "Contraseña no encontrada";
+            return userAndPwMap;
     }
 
     /**

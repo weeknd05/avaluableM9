@@ -1,0 +1,12 @@
+
+----------------------------------------------------------------------------------
+cambio:revertir
+movil:funda
+root:administrador
+programa:objeto
+admin:vino
+adrian:espalto
+pepito:simple
+david:tutor
+usuario2:guardar
+clase:risa

@@ -58,19 +58,19 @@ public class Procesador {
      * @throws IOException 
      */
     public static void escribirFichero(HashMap<String, String> map, String fileName ) throws IOException{
-        FileWriter fw = new FileWriter(fileName);
+        FileWriter fw = new FileWriter(fileName, true);
+        //delimitador
+        fw.write("----------------------------------------------------------------------------------\n");
 
         map.forEach((key, value) -> {
-            try {
-                fw.write(key + ":" + hashContraseña(value));
-                fw.write("\n");
-            } catch (NoSuchAlgorithmException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+                try {
+                    fw.write(key + ":" + value);
+                    fw.write("\n");
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+          
         });
         fw.close();
 
