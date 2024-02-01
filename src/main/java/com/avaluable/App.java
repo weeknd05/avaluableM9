@@ -8,7 +8,11 @@ import java.util.Scanner;
 
 public class App {
 
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+    static long startTime;
+    static long endTime;
+    static long duration;
+
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         HashMap<String, String> mapCuentas = Procesador.leerFichero("usuaris.txt");
         int menuOption = 0;
@@ -16,7 +20,7 @@ public class App {
         while (menuOption != -1) {
             displayMenu();
             menuOption = scanner.nextInt();
-            scanner.nextLine(); // To consume the newline character
+            scanner.nextLine(); 
 
             switch (menuOption) {
                 case 1:
@@ -24,7 +28,7 @@ public class App {
                     break;
 
                 case 2:
-                    // Placeholder for multi-threaded attack
+                    multiThreadAttack(scanner, mapCuentas);
                     break;
 
                 default:
@@ -32,6 +36,7 @@ public class App {
                     break;
             }
         }
+        scanner.close(); 
     }
 
     private static void displayMenu() {
@@ -42,10 +47,10 @@ public class App {
 
     private static void singleThreadAttack(Scanner scanner, HashMap<String, String> mapCuentas) throws NoSuchAlgorithmException {
         System.out.println("Introduce el nombre del diccionario \nEj: \"es.dic\"");
-
         try {
             String[] dictionary = Procesador.cargarDiccionario(scanner.nextLine());
             Compte[] accounts = createAccountArray(mapCuentas, 10);
+            startTime = System.currentTimeMillis();
             AtacSimple atacSimple = new AtacSimple(dictionary);
 
             for (Compte compte : accounts) {
@@ -55,6 +60,32 @@ public class App {
             }
 
             Procesador.escribirFichero(mapCuentas, "resultats.txt");
+            endTime = System.currentTimeMillis();
+            duration = endTime - startTime;
+            System.out.println("Ataque un solo hilo tomó: " + duration + " milisegundos.");
+        } catch (IOException e) {
+            System.out.println("El fichero no existe");
+        }
+    }
+
+    private static void multiThreadAttack(Scanner scanner, HashMap<String, String> mapCuentas) throws Exception {
+        System.out.println("Introduce el nombre del diccionario \nEj: \"es.dic\"");
+        try {
+            String[] dictionary = Procesador.cargarDiccionario(scanner.nextLine());
+            Compte[] accounts = createAccountArray(mapCuentas, 10);
+            startTime = System.currentTimeMillis();
+            AtacMulti atacMulti = new AtacMulti(dictionary);
+
+            for (Compte compte : accounts) {
+                if (compte != null) {
+                    System.out.println(atacMulti.atacar(compte));
+                }
+            }
+
+            Procesador.escribirFichero(mapCuentas, "resultats_multihilo.txt");
+            endTime = System.currentTimeMillis();
+            duration = endTime - startTime;
+            System.out.println("Ataque multi hilo tomó: " + duration + " milisegundos.");
         } catch (IOException e) {
             System.out.println("El fichero no existe");
         }
